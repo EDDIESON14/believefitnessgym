@@ -147,12 +147,14 @@ const App = (() => {
     e.preventDefault();
     const memberId = document.getElementById('checkInMember').value;
     if (!memberId) { UIModule.showToast('Please select a member', 'error'); return; }
+    // Get full member data including profilePhoto
+    const fullMember = StorageModule.getMemberById(memberId);
     const result = AttendanceModule.checkInOut(memberId);
     if (result.success) {
+      // Show profile photo on Last Scanned box
+      if (fullMember) AttendanceModule.updateMemberProfile(fullMember, result.action);
       // Show on client display window
-      if (result.member) {
-        ClientMonitor.showMemberCard(result.member, result.action);
-      }
+      if (fullMember) ClientMonitor.showMemberCard(fullMember, result.action);
       DashboardModule.updateDashboard();
       UIModule.showToast(result.message, 'success');
       document.getElementById('checkInForm').reset();
@@ -228,17 +230,17 @@ const App = (() => {
     try {
       const health = await fetch(getSmsServer() + '/api/health', { signal: AbortSignal.timeout(3000) }).catch(() => null);
       if (!health || !health.ok) {
-        statusEl.innerHTML = '<span class="text-red-600 font-bold">❌ Server Offline</span><br><span class="text-sm text-gray-500">Run: <code class="bg-gray-100 px-1 rounded">node server.js</code> in your project folder</span>';
+        statusEl.innerHTML = '<span class="text-red-600 font-bold">❌ Server Offline</span><br><span class="text-sm text-[#C0C0C0]">Run: <code class="bg-gray-100 px-1 rounded">node server.js</code> in your project folder</span>';
         return;
       }
       const cfg = await fetch(getSmsServer() + '/api/sms-config').then(r => r.json()).catch(() => null);
       if (cfg && cfg.configured) {
-        statusEl.innerHTML = `<span class="text-green-600 font-bold">✅ SMS Configured & Server Running</span><br><span class="text-sm text-gray-500">Sender: <strong>${cfg.senderName}</strong></span>`;
+        statusEl.innerHTML = `<span class="text-green-600 font-bold">✅ SMS Configured & Server Running</span><br><span class="text-sm text-[#C0C0C0]">Sender: <strong>${cfg.senderName}</strong></span>`;
       } else {
-        statusEl.innerHTML = '<span class="text-orange-500 font-bold">⚠️ Server Running — API Key Not Set</span><br><span class="text-sm text-gray-500">Enter your Semaphore API key above and save.</span>';
+        statusEl.innerHTML = '<span class="text-orange-500 font-bold">⚠️ Server Running — API Key Not Set</span><br><span class="text-sm text-[#C0C0C0]">Enter your Semaphore API key above and save.</span>';
       }
     } catch (err) {
-      statusEl.innerHTML = '<span class="text-red-600 font-bold">❌ Server Offline</span><br><span class="text-sm text-gray-500">Run: <code class="bg-gray-100 px-1 rounded">node server.js</code> in your project folder</span>';
+      statusEl.innerHTML = '<span class="text-red-600 font-bold">❌ Server Offline</span><br><span class="text-sm text-[#C0C0C0]">Run: <code class="bg-gray-100 px-1 rounded">node server.js</code> in your project folder</span>';
     }
   }
 

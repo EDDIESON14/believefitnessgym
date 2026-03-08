@@ -25,11 +25,13 @@ const AttendanceModule = (() => {
   function checkInOutByCode(code) {
     const member = StorageModule.getAllMembers().find(m => m.qrCode === code);
     if (!member) return { success: false, message: 'Invalid barcode/QR code' };
-    const result = checkInOut(member.id);
+    // Get full member data including profilePhoto
+    const fullMember = StorageModule.getMemberById(member.id) || member;
+    const result = checkInOut(fullMember.id);
     if (result.success) {
-      updateMemberProfile(member, result.action);
+      updateMemberProfile(fullMember, result.action);
       // Send to client display window
-      ClientMonitor.showMemberCard(member, result.action);
+      ClientMonitor.showMemberCard(fullMember, result.action);
     }
     return result;
   }
@@ -177,7 +179,7 @@ const AttendanceModule = (() => {
     }).join('');
   }
 
-  return { checkInOut, checkInOutByCode, initScanner, renderAttendanceRecords, updateCheckInMemberSelect, renderMemberStatusTable, clearProfile };
+  return { checkInOut, checkInOutByCode, initScanner, renderAttendanceRecords, updateCheckInMemberSelect, renderMemberStatusTable, clearProfile, updateMemberProfile };
 })();
 
 // ===============================================
