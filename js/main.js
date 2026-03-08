@@ -8,6 +8,15 @@ const App = (() => {
     EmailModule.loadEmailConfig();
     setupEventListeners();
     setInitialDate();
+    // Restore login session after page refresh
+    if (AuthModule.restoreSession()) {
+      document.getElementById('loginPage').classList.add('hidden');
+      document.getElementById('dashboard').classList.remove('hidden');
+      UIModule.updateUIForRole();
+      DashboardModule.updateDashboard();
+      NotifModule.updateBell();
+      UIModule.switchTab('home');
+    }
   }
 
   function setupEventListeners() {
