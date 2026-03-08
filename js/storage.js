@@ -16,8 +16,18 @@ const StorageModule = (() => {
   let _listeners = [];  // unsubscribe functions
 
   // ── Init ─────────────────────────────────────
+  // App service account — signs in silently on load
+  // Change this email/password to match what you
+  // created in Firebase Console → Authentication → Users
+  const _APP_EMAIL = "app@believefitness.com";
+  const _APP_PASS  = "BelieveFitness2024!";
+
   async function loadData() {
     try {
+      // Sign in to Firebase first (required by Firestore rules)
+      await firebase.auth().signInWithEmailAndPassword(_APP_EMAIL, _APP_PASS)
+        .catch(e => console.warn('[Auth] Sign-in failed:', e.message));
+
       db = firebase.firestore();
 
       // Real-time listener for members

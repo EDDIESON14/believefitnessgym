@@ -15,22 +15,6 @@ const firebaseConfig = {
   appId: "1:123:web:abc123"
 };
 
-// =============================================
-// FIREBASE SERVICE ACCOUNT
-// =============================================
-// This is a hidden app-level account used to
-// authenticate the app with Firebase securely.
-// Staff still use their own username/password
-// on the login page — this is separate.
-//
-// STEP: Set these to any email/password you want.
-// Then go to Firebase Console → Authentication →
-// Add user → enter this same email/password.
-// =============================================
-const FIREBASE_APP_EMAIL    = "rubinarioeddieson@gmail.com";
-const FIREBASE_APP_PASSWORD = "eddiesonfitness123";
-
-
 // Initialize Firebase
 try {
   firebase.initializeApp(firebaseConfig);
