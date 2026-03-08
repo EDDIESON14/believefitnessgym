@@ -12,7 +12,7 @@ const Config = (() => {
     'Day Pass (Student)': 100, 'Day Pass (Regular)': 120,
     'Monthly (Student)': 600, 'Monthly (Regular)': 700
   };
-  const DEFAULT_ADMIN = { username: 'admin', password: 'admin123', role: 'admin', fullName: 'System Administrator', email: '', createdAt: new Date().toISOString() };
+  const DEFAULT_ADMIN = { username: 'admin', password: 'BelieveFitnessGym!', role: 'admin', fullName: 'System Administrator', email: '', createdAt: new Date().toISOString() };
   function getMembershipPrices() { return MEMBERSHIP_PRICES; }
   function updateMembershipPrices(prices) { MEMBERSHIP_PRICES = { ...prices }; }
   return { STORAGE_KEY, ACCOUNTS_KEY, SETTINGS_KEY, EMAIL_CONFIG_KEY, PHOTOS_KEY, EVENTS_KEY, MAX_GYM_CAPACITY, getMembershipPrices, updateMembershipPrices, DEFAULT_ADMIN };

@@ -17,7 +17,7 @@ const HomeModule = (() => {
 
     if (welcomeEl && user) {
       const hour = new Date().getHours();
-      const greeting = hour < 12 ? '🌅 Good morning' : hour < 18 ? '☀️ Good afternoon' : '🌙 Good evening';
+      const greeting = hour < 12 ? ' Good morning' : hour < 18 ? ' Good afternoon' : ' Good evening';
       welcomeEl.textContent = `${greeting}, ${user.fullName}!`;
     }
     if (dateEl) {
