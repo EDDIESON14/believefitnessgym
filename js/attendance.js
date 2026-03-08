@@ -35,15 +35,53 @@ const AttendanceModule = (() => {
   }
 
   function updateMemberProfile(member, action) {
-    const profileBox = document.getElementById('memberProfileBox');
-    const timeStr = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-    document.getElementById('profileName').textContent = member.name;
+    const profileBox   = document.getElementById('memberProfileBox');
+    const timeStr      = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+    const isCheckIn    = action === 'checkin';
+
+    // Name, membership, expiry, time
+    document.getElementById('profileName').textContent       = member.name;
     document.getElementById('profileMembership').textContent = member.membershipType;
-    document.getElementById('profileExpiry').textContent = member.expiryDate;
-    document.getElementById('profileTime').textContent = timeStr;
+    document.getElementById('profileExpiry').textContent     = member.expiryDate;
+    document.getElementById('profileTime').textContent       = timeStr;
+
+    // Status badge
     const statusSpan = document.getElementById('profileStatus');
-    if (action === 'checkin') { statusSpan.textContent = 'Checked In'; statusSpan.className = 'inline-block px-3 py-1 rounded-full text-xs font-bold bg-green-400 text-black'; }
-    else { statusSpan.textContent = 'Checked Out'; statusSpan.className = 'inline-block px-3 py-1 rounded-full text-xs font-bold bg-red-400 text-black'; }
+    if (isCheckIn) {
+      statusSpan.textContent = 'Checked In';
+      statusSpan.className = 'inline-block mt-1 px-3 py-1 rounded-full text-xs font-bold bg-green-400 text-black';
+    } else {
+      statusSpan.textContent = 'Checked Out';
+      statusSpan.className = 'inline-block mt-1 px-3 py-1 rounded-full text-xs font-bold bg-red-400 text-black';
+    }
+
+    // Profile photo
+    const photoEl      = document.getElementById('profilePhoto');
+    const fallbackEl   = document.getElementById('profilePhotoFallback');
+    const initialEl    = document.getElementById('profilePhotoInitial');
+    const badgeEl      = document.getElementById('profilePhotoBadge');
+    const noPhotoWarn  = document.getElementById('profileNoPhotoWarning');
+
+    if (member.profilePhoto) {
+      photoEl.src = member.profilePhoto;
+      photoEl.classList.remove('hidden');
+      fallbackEl.classList.add('hidden');
+      noPhotoWarn.classList.add('hidden');
+      // Green verified badge
+      badgeEl.textContent = '✓';
+      badgeEl.className = 'absolute -bottom-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold bg-green-400 text-black';
+      badgeEl.classList.remove('hidden');
+    } else {
+      photoEl.classList.add('hidden');
+      fallbackEl.classList.remove('hidden');
+      initialEl.textContent = member.name.charAt(0).toUpperCase();
+      noPhotoWarn.classList.remove('hidden');
+      badgeEl.classList.add('hidden');
+    }
+
+    // Border color based on action
+    profileBox.className = profileBox.className.replace(/border-\S+/g, '');
+    profileBox.classList.add(isCheckIn ? 'border-green-400' : 'border-gray-300');
     profileBox.classList.remove('hidden');
   }
 
