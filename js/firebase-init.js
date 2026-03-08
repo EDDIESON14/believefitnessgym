@@ -7,12 +7,12 @@
 // =============================================
 
 const firebaseConfig = {
-  apiKey:            "PASTE_YOUR_API_KEY_HERE",
-  authDomain:        "PASTE_YOUR_PROJECT_ID.firebaseapp.com",
-  projectId:         "PASTE_YOUR_PROJECT_ID",
-  storageBucket:     "PASTE_YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "PASTE_YOUR_SENDER_ID",
-  appId:             "PASTE_YOUR_APP_ID"
+  apiKey: "AIzaSy...",
+  authDomain: "believe-fitness-xxxxx.firebaseapp.com",
+  projectId: "believe-fitness-xxxxx",
+  storageBucket: "believe-fitness-xxxxx.appspot.com",
+  messagingSenderId: "123456789",
+  appId: "1:123:web:abc123"
 };
 
 // Initialize Firebase
