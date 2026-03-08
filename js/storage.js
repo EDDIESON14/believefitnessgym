@@ -24,9 +24,9 @@ const StorageModule = (() => {
 
   async function loadData() {
     try {
-      // Sign in to Firebase first (required by Firestore rules)
-      await firebase.auth().signInWithEmailAndPassword(_APP_EMAIL, _APP_PASS)
-        .catch(e => console.warn('[Auth] Sign-in failed:', e.message));
+      // Sign in to Firebase first — MUST complete before attaching listeners
+      await firebase.auth().signInWithEmailAndPassword(_APP_EMAIL, _APP_PASS);
+      console.log('[Firebase] Auth success — connecting to Firestore...');
 
       db = firebase.firestore();
 
@@ -34,19 +34,19 @@ const StorageModule = (() => {
       const unsubMembers = db.collection('members').onSnapshot(snap => {
         data.members = snap.docs.map(d => ({ id: d.id, ...d.data() }));
         _onDataChange('members');
-      });
+      }, err => console.error('[Firestore] members error:', err));
 
       // Real-time listener for attendance
       const unsubAttendance = db.collection('attendance').onSnapshot(snap => {
         data.attendance = snap.docs.map(d => ({ id: d.id, ...d.data() }));
         _onDataChange('attendance');
-      });
+      }, err => console.error('[Firestore] attendance error:', err));
 
       // Real-time listener for payments
       const unsubPayments = db.collection('payments').onSnapshot(snap => {
         data.payments = snap.docs.map(d => ({ id: d.id, ...d.data() }));
         _onDataChange('payments');
-      });
+      }, err => console.error('[Firestore] payments error:', err));
 
       _listeners = [unsubMembers, unsubAttendance, unsubPayments];
       _initialized = true;
@@ -56,7 +56,7 @@ const StorageModule = (() => {
       return data;
 
     } catch (err) {
-      console.error('[Storage] Firebase init failed, falling back to localStorage:', err);
+      console.warn('[Auth] Sign-in failed, falling back to localStorage:', err.message);
       return _loadFromLocalStorage();
     }
   }
