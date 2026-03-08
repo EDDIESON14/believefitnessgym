@@ -7,12 +7,13 @@
 // =============================================
 
 const firebaseConfig = {
-  apiKey: "AIzaSy...",
-  authDomain: "believe-fitness-xxxxx.firebaseapp.com",
-  projectId: "believe-fitness-xxxxx",
-  storageBucket: "believe-fitness-xxxxx.appspot.com",
-  messagingSenderId: "123456789",
-  appId: "1:123:web:abc123"
+  apiKey: "AIzaSyDGs8xxeItC5dyfW-48vfn1_U4Y57loocw",
+  authDomain: "believe-fitness-center.firebaseapp.com",
+  projectId: "believe-fitness-center",
+  storageBucket: "believe-fitness-center.firebasestorage.app",
+  messagingSenderId: "71117912899",
+  appId: "1:71117912899:web:27cb85728188cbb2bd4df6",
+  measurementId: "G-E7XE3YLP38"
 };
 
 // Initialize Firebase
