@@ -13,7 +13,7 @@ const UIModule = (() => {
 
   function switchTab(tabName) {
     document.querySelectorAll('.nav-tab').forEach(tab => { // tab switching
-    tab.classList.remove('bg-gray-400','text-black'); tab.classList.add('text-gray-700','hover:bg-gray-900'); });
+    tab.classList.remove('bg-gray-400','text-black'); tab.classList.add('text-gray-700','hover:bg-gray-=600'); });
     const activeTab = document.querySelector(`[data-tab="${tabName}"]`);
     if (activeTab) { activeTab.classList.remove('text-gray-700','hover:bg-gray-900'); activeTab.classList.add('bg-gray-400','text-black'); }
     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
