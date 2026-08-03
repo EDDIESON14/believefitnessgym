@@ -211,4 +211,3 @@ const AccountsModule = (() => {
     renderAccountsList, togglePassword, confirmDelete, cancelDelete, executeDelete
   };
 })();
-// ===============================================

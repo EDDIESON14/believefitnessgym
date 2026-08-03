@@ -109,4 +109,3 @@ const SettingsModule = (() => {
 
   return { loadSettings, getSettings, updatePricing, updateOperatingHours, loadPricingForm, loadOperatingHoursForm, displayOperatingHours, updateMembershipTypeOptions };
 })();
-// ===============================================

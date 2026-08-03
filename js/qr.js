@@ -84,4 +84,4 @@ const QRModule = (() => {
   return { showQrCode, closeQrModal, downloadBarcode, printBarcode, show1D, show2D };
 })();
 
-// ===============================================
+

@@ -39,4 +39,3 @@ const AuthModule = (() => {
   return { login, logout, getCurrentUser, isAuthenticated, isAdmin, restoreSession };
 })();
 
-// ===============================================

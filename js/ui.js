@@ -40,4 +40,3 @@ const UIModule = (() => {
   return { showToast, switchTab, updateUIForRole };
 })();
 
-// ===============================================

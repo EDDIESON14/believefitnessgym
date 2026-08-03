@@ -182,4 +182,3 @@ const AttendanceModule = (() => {
   return { checkInOut, checkInOutByCode, initScanner, renderAttendanceRecords, updateCheckInMemberSelect, renderMemberStatusTable, clearProfile, updateMemberProfile };
 })();
 
-// ===============================================

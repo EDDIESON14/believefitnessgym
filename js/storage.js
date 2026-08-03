@@ -202,4 +202,3 @@ const StorageModule = (() => {
     getAllPayments, addPayment
   };
 })();
-// ===============================================

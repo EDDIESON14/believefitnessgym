@@ -18,4 +18,4 @@ const Config = (() => {
   return { STORAGE_KEY, ACCOUNTS_KEY, SETTINGS_KEY, EMAIL_CONFIG_KEY, PHOTOS_KEY, EVENTS_KEY, MAX_GYM_CAPACITY, getMembershipPrices, updateMembershipPrices, DEFAULT_ADMIN };
 })();
 
-// ===============================================
+

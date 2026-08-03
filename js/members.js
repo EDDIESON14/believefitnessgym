@@ -291,4 +291,3 @@ const MembersModule = (() => {
   return { addMember, getActiveMembers, getExpiringSoonMembers, renderMembersList, filterMembers, confirmDeleteMember, cancelDeleteMember, executeDeleteMember, previewPhoto, clearPhoto, getPhotoDataUrl, triggerPhotoUpdate, updateMemberPhoto, openRenewModal, closeRenewModal, updateRenewPreview, confirmRenewal };
 })();
 
-// ===============================================

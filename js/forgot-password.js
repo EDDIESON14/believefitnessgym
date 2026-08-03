@@ -191,4 +191,4 @@ const ForgotPasswordModule = (() => {
   return { openModal, closeModal, requestOTP, verifyOTP, resendOTP, resetPassword };
 })();
 
-// ===============================================
+
