@@ -41,7 +41,7 @@ const NotifModule = (() => {
     const footer = document.getElementById('notifFooter');
 
     if (alerts.length === 0) {
-      container.innerHTML = '<div class="px-4 py-8 text-center"><p class="text-4xl mb-2">✅</p><p class="text-[#C0C0C0] text-sm">All memberships are OK</p></div>';
+      container.innerHTML = '<div class="px-4 py-8 text-center"><p class="text-4xl mb-2">🗸</p><p class="text-[#C0C0C0] text-sm">All memberships are OK</p></div>';
       footer.textContent = 'No expiring memberships';
       return;
     }
