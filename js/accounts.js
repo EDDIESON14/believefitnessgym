@@ -105,7 +105,7 @@ const AccountsModule = (() => {
         const emailDisplay = hasEmail
           ? `<p class="flex items-center gap-1">📧 Email: <strong>${account.email}</strong>
                <button onclick="AccountsModule.openEditEmail('${account.username}')"
-                 class="ml-1 text-xs text-emerald-600 hover:text-gray-700 hover:underline font-medium">✏️ Edit</button></p>`
+                 class="ml-1 text-xs text-emerald-600 hover:text-gray-700 hover:underline font-medium"> Edit</button></p>`
           : `<p class="flex items-center gap-2">📧 Email:
                <span class="text-orange-500 font-medium">⚠️ No email set</span>
                <button onclick="AccountsModule.openEditEmail('${account.username}')"
@@ -135,7 +135,7 @@ const AccountsModule = (() => {
               <div class="flex flex-col items-end space-y-2">
                 ${!isDefaultAdmin
                   ? `<button onclick="AccountsModule.confirmDelete('${account.username}')"
-                       class="text-black hover:text-gray-700 text-sm font-medium">🗑️ Delete</button>`
+                       class="text-black hover:text-gray-700 text-sm font-medium">Delete</button>`
                   : ''}
               </div>
             </div>
@@ -182,7 +182,7 @@ const AccountsModule = (() => {
     if (span.dataset.visible === 'true') {
       span.textContent = '••••••••'; span.dataset.visible = 'false'; btn.textContent = '👁 Show';
     } else {
-      span.textContent = account.password; span.dataset.visible = 'true'; btn.textContent = '🙈 Hide';
+      span.textContent = account.password; span.dataset.visible = 'true'; btn.textContent = 'Hide';
     }
   }
 

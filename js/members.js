@@ -98,7 +98,7 @@ const MembersModule = (() => {
                    </div>`
               }
               ${member.profilePhoto
-                ? `<button onclick="MembersModule.triggerPhotoUpdate('${member.id}')" title="Change photo" class="absolute -bottom-1 -right-1 bg-emerald-500 hover:bg-emerald-600 text-black rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold transition">✏️</button>`
+                ? `<button onclick="MembersModule.triggerPhotoUpdate('${member.id}')" title="Change photo" class="absolute -bottom-1 -right-1 bg-emerald-500 hover:bg-emerald-600 text-black rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold transition">✎</button>`
                 : ''
               }
               <input type="file" id="photoInput_${member.id}" accept="image/*" class="hidden" onchange="MembersModule.updateMemberPhoto('${member.id}', event)">
@@ -109,7 +109,7 @@ const MembersModule = (() => {
                 ${member.profilePhoto ? '<span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">🔒 Photo Set</span>' : '<span class="text-xs bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full font-medium">⚠️ No Photo</span>'}
               </div>
               <div class="mt-1 space-y-1 text-sm text-emerald-600">
-                <p>📧 ${member.email}</p><p>🎫 ${member.membershipType}</p><p>📅 Expires: ${member.expiryDate}</p>
+                <p>📧 ${member.email}</p><p>🎫 ${member.membershipType}</p><p>📆 Expires: ${member.expiryDate}</p>
               </div>
             </div>
           </div>
