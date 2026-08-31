@@ -1,9 +1,10 @@
-// SETTINGS MODULE — Firebase Firestore
+// SETTINGS MODULE — Firebase Firestore + GCash QR
 // ===============================================
 const SettingsModule = (() => {
   let settings = {
     pricing: { dayPassStudent: 100, dayPassRegular: 120, monthlyStudent: 600, monthlyRegular: 700 },
-    operatingHours: { openingTime: '06:00', closingTime: '22:00', days: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'] }
+    operatingHours: { openingTime: '06:00', closingTime: '22:00', days: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'] },
+    gcashQR: null  // base64 image of admin's GCash QR code
   };
   let db = null;
   let _initialized = false;
@@ -13,7 +14,7 @@ const SettingsModule = (() => {
       db = firebase.firestore();
       const doc = await db.collection('config').doc('settings').get();
       if (doc.exists) {
-        settings = doc.data();
+        settings = { ...settings, ...doc.data() };
       } else {
         await db.collection('config').doc('settings').set(settings);
       }
@@ -21,12 +22,12 @@ const SettingsModule = (() => {
 
       // Real-time listener
       db.collection('config').doc('settings').onSnapshot(d => {
-        if (d.exists) { settings = d.data(); _applyPrices(); }
+        if (d.exists) { settings = { ...settings, ...d.data() }; _applyPrices(); }
       });
     } catch(e) {
       console.error('[Settings] Firebase failed, using localStorage:', e);
       const stored = localStorage.getItem(Config.SETTINGS_KEY);
-      if (stored) settings = JSON.parse(stored);
+      if (stored) settings = { ...settings, ...JSON.parse(stored) };
     }
     _applyPrices();
     return settings;
@@ -43,7 +44,11 @@ const SettingsModule = (() => {
 
   async function saveSettings() {
     if (_initialized) {
-      try { await db.collection('config').doc('settings').set(settings); return; } catch(e) {}
+      try {
+        await db.collection('config').doc('settings').set(settings);
+        _applyPrices();
+        return;
+      } catch(e) { console.error('[Settings] Firebase save failed:', e); }
     }
     localStorage.setItem(Config.SETTINGS_KEY, JSON.stringify(settings));
     _applyPrices();
@@ -79,7 +84,7 @@ const SettingsModule = (() => {
 
   function loadOperatingHoursForm() {
     document.getElementById('openingTime').value = settings.operatingHours.openingTime;
-    document.getElementById('closingTime').value = settings.operatingHours.closingTime;
+    document.getElementById('closingTime').value  = settings.operatingHours.closingTime;
     ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'].forEach(day => {
       const cb = document.getElementById(`day${day}`);
       if (cb) cb.checked = settings.operatingHours.days.includes(day);
@@ -107,5 +112,44 @@ const SettingsModule = (() => {
     if (currentValue) select.value = currentValue;
   }
 
-  return { loadSettings, getSettings, updatePricing, updateOperatingHours, loadPricingForm, loadOperatingHoursForm, displayOperatingHours, updateMembershipTypeOptions };
+  // ── GCASH QR ──────────────────────────────────
+  function getGcashQR() { return settings.gcashQR || null; }
+
+  async function saveGcashQR(base64Image) {
+    settings.gcashQR = base64Image;
+    await saveSettings();
+    _renderGcashPreview();
+  }
+
+  async function removeGcashQR() {
+    settings.gcashQR = null;
+    await saveSettings();
+    _renderGcashPreview();
+  }
+
+  function _renderGcashPreview() {
+    const preview     = document.getElementById('gcashQRPreview');
+    const placeholder = document.getElementById('gcashQRPlaceholder');
+    const removeBtn   = document.getElementById('gcashQRRemoveBtn');
+    if (!preview) return;
+    if (settings.gcashQR) {
+      preview.src = settings.gcashQR;
+      preview.classList.remove('hidden');
+      if (placeholder) placeholder.classList.add('hidden');
+      if (removeBtn)   removeBtn.classList.remove('hidden');
+    } else {
+      preview.classList.add('hidden');
+      if (placeholder) placeholder.classList.remove('hidden');
+      if (removeBtn)   removeBtn.classList.add('hidden');
+    }
+  }
+
+  function loadGcashQRSection() { _renderGcashPreview(); }
+
+  return {
+    loadSettings, getSettings, updatePricing, updateOperatingHours,
+    loadPricingForm, loadOperatingHoursForm, displayOperatingHours,
+    updateMembershipTypeOptions,
+    getGcashQR, saveGcashQR, removeGcashQR, loadGcashQRSection
+  };
 })();

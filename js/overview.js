@@ -5,7 +5,7 @@ const OverviewModule = (() => {
     const todayAttendance = StorageModule.getTodayAttendance();
     const activeVisitors = todayAttendance.filter(a => !a.checkOutTime).length;
     document.getElementById('liveVisitors').textContent = activeVisitors;
-    const percentage = Math.round((activeVisitors / Config.MAX_GYM_CAPACITY) * 100);
+    const percentage = Math.round((activeVisitors / Config.MAX_GYM_CAPACITY) * 1000);
     document.getElementById('capacityPercentage').textContent = `${percentage}%`;
     document.getElementById('capacityBar').style.width = `${percentage}%`;
     document.getElementById('capacityCount').textContent = `${activeVisitors} / ${Config.MAX_GYM_CAPACITY}`;

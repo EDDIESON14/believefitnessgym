@@ -134,7 +134,7 @@ const ForgotPasswordModule = (() => {
       if (el) el.textContent = `${Math.floor(remaining / 60)}:${String(remaining % 60).padStart(2, '0')}`;
       if (remaining === 0) {
         clearInterval(countdownInterval);
-        showError('fpVerifyError', '⏰ OTP expired. Please go back and request a new one.');
+        showError('fpVerifyError', ' OTP expired. Please go back and request a new one.');
         currentOTP = null;
       }
     }
@@ -148,9 +148,9 @@ const ForgotPasswordModule = (() => {
     hideError('fpVerifyError');
     const entered = document.getElementById('fpOtpInput').value.trim();
     if (!entered)    { showError('fpVerifyError', 'Please enter the OTP.'); return; }
-    if (!currentOTP) { showError('fpVerifyError', '⏰ OTP expired. Please request a new one.'); return; }
+    if (!currentOTP) { showError('fpVerifyError', ' OTP expired. Please request a new one.'); return; }
     if (Date.now() > currentOTP.expiry) {
-      showError('fpVerifyError', '⏰ OTP has expired. Please request a new one.');
+      showError('fpVerifyError', ' OTP has expired. Please request a new one.');
       currentOTP = null; return;
     }
     if (entered !== currentOTP.code) {

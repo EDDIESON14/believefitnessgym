@@ -7,7 +7,7 @@ const Config = (() => {
   const EMAIL_CONFIG_KEY = 'gymEmailConfig_v37';
   const PHOTOS_KEY = 'gymPhotos_v37';
   const EVENTS_KEY = 'gymEvents_v37';
-  const MAX_GYM_CAPACITY = 50;
+  const MAX_GYM_CAPACITY = 999;
   let MEMBERSHIP_PRICES = {
     'Day Pass (Student)': 100, 'Day Pass (Regular)': 120,
     'Monthly (Student)': 600, 'Monthly (Regular)': 700
